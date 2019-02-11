@@ -50,7 +50,11 @@ public class AIController : Controller
         Animator.SetBool("Walking", false);
         Animator.SetTrigger("Attack");
 
-        yield return null;
+        while(true)
+        {
+            Reactor.Instance.TakeDamage(Unit.Damage);
+            yield return new WaitForSeconds(1.0f);
+        }
     }
 
 }

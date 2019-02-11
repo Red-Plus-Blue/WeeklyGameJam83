@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public GameObject EnemyPrefab;
+    public GameObject[] EnemyPrefabs;
     public GameObject[] PathsPrototypes;
 
     protected Dictionary<GameObject, GameObject[]> _paths = new Dictionary<GameObject, GameObject[]>();
@@ -57,7 +57,19 @@ public class EnemySpawner : MonoBehaviour
         var pathIndex = UnityEngine.Random.Range(0, PathsPrototypes.Length);
         var prototype = PathsPrototypes[pathIndex];
 
-        var enemyObject = GameObject.Instantiate(EnemyPrefab, prototype.transform.position, Quaternion.identity);
+        var prefab = EnemyPrefabs[0];
+        for(int i = 0; i < EnemyPrefabs.Length; i++)
+        {
+            prefab = EnemyPrefabs[i];
+            var roll = UnityEngine.Random.Range(0, 5);
+
+            if(roll == 0)
+            {
+                break;
+            }
+        }
+
+        var enemyObject = GameObject.Instantiate(prefab, prototype.transform.position, Quaternion.identity);
         var enemy = enemyObject.GetComponent<AIController>();
         enemy.Path = _paths[prototype];
 

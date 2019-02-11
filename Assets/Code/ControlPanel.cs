@@ -6,10 +6,10 @@ using UnityEngine;
 
 public class ControlPanel : MonoBehaviour
 {
-    public Trap Trap;
+    public Trap[] Traps;
 
-    public void Activate()
+    public void Activate(int mode)
     {
-        Trap.Activate();
+        Traps[mode].Activate();
     }
 }
