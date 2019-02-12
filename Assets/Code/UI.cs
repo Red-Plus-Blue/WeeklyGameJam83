@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UI : MonoBehaviour
@@ -11,6 +12,9 @@ public class UI : MonoBehaviour
     public Text HealthText;
 
     public Text PointsText;
+
+    public CanvasGroup EndScreen;
+    public Text FinalPointsText;
 
     protected int _points;
 
@@ -33,4 +37,25 @@ public class UI : MonoBehaviour
         HealthText.text = $"{health}/{max}";
     }
 
+    public void ShowEndScreen()
+    {
+        StartCoroutine(ShowEndScreen_Coroutine());
+    }
+
+    protected IEnumerator ShowEndScreen_Coroutine()
+    {
+        FinalPointsText.text = _points.ToString();
+        while(EndScreen.alpha < 1.0f)
+        {
+            EndScreen.alpha += .01f;
+            yield return new WaitForSeconds(.01f);
+        }
+
+        yield return null;
+    }
+
+    public void Restart()
+    {
+        SceneManager.LoadScene(0);
+    }
 }

@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using System;
+using System.Linq;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -41,6 +43,9 @@ public class Reactor : MonoBehaviour
 
     public void Die()
     {
-
+        EnemySpawner.Instance.Deactivate();
+        var enemies = GameObject.FindObjectsOfType<AIController>().ToList();
+        enemies.ForEach(enemy => GameObject.Destroy(enemy.gameObject));
+        UI.ShowEndScreen();
     }
 }

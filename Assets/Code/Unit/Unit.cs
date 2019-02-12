@@ -42,8 +42,8 @@ public class Unit : MonoBehaviour
 
     protected void Die()
     {
-        var lifeTime = Mathf.Min(Time.time - SpawnTime, 120.0f);
-        var bonus = (lifeTime / 120.0f) * 490.0f;
+        var lifeTime = Mathf.Min(Time.time - SpawnTime, 60.0f);
+        var bonus = (1 - (lifeTime / 60.0f)) * 490.0f;
         UI.Instance.AddPoints((int)(bonus + 10.0f));
 
         var controller = gameObject.GetComponent<Controller>();

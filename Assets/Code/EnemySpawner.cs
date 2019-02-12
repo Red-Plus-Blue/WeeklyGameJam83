@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
+    public static EnemySpawner Instance;
+
     public GameObject[] EnemyPrefabs;
     public GameObject[] PathsPrototypes;
 
@@ -15,6 +17,8 @@ public class EnemySpawner : MonoBehaviour
 
     private void Awake()
     {
+        Instance = this;
+
         PathsPrototypes.ToList().ForEach(path =>
         {
             var newPath = new List<GameObject>();
@@ -37,18 +41,20 @@ public class EnemySpawner : MonoBehaviour
         StartCoroutine(Run());
     }
 
-    public void DeActivate()
+    public void Deactivate()
     {
         Active = false;
     }
 
     protected IEnumerator Run()
     {
-        while(true)
+        yield return new WaitForSeconds(5.0f);
+
+        while (Active)
         {
+            Spawn();
             var spawnDelay = UnityEngine.Random.Range(3.0f, 5.0f);
             yield return new WaitForSeconds(spawnDelay);
-            Spawn();
         }
     }
 
